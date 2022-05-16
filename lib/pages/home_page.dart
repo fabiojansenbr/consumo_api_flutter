@@ -1,4 +1,5 @@
 import 'package:consumo_api_flutter/models/empresa_model.dart';
+import 'package:consumo_api_flutter/pages/adicionar_produto_page.dart';
 import 'package:consumo_api_flutter/repository/empresa_repository_http.dart';
 import 'package:flutter/material.dart';
 
@@ -37,6 +38,15 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text('Empresas'),
         centerTitle: true,
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AdicionarProdutoPage()),
+          );
+        },
+        child: Icon(Icons.add),
       ),
       body: FutureBuilder(
         future: empresaRepositoryHttp.getEmpresas(),

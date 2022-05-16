@@ -41,4 +41,21 @@ class EmpresaRepositoryHttp {
 
     return null;
   }
+
+  Future<bool> enviarEmpresa(String nome, String email) async {
+    final endpoint = 'https://6255acfc8646add390db210d.mockapi.io/empresas/';
+
+    final body = {
+      "nome": nome,
+      "email": email,
+    };
+
+    final response = await http.post(Uri.parse(endpoint), body: body);
+
+    if (response.statusCode == 201) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
