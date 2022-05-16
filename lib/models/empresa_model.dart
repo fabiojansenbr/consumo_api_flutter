@@ -1,10 +1,12 @@
 import 'dart:convert';
 
 class EmpresaModel {
+  final String id;
   final String nome;
   final String email;
 
   EmpresaModel({
+    required this.id,
     required this.nome,
     required this.email,
   });
@@ -12,6 +14,7 @@ class EmpresaModel {
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
 
+    result.addAll({'id': id});
     result.addAll({'nome': nome});
     result.addAll({'email': email});
 
@@ -20,6 +23,7 @@ class EmpresaModel {
 
   factory EmpresaModel.fromMap(Map<String, dynamic> map) {
     return EmpresaModel(
+      id: map['id'] ?? '',
       nome: map['nome'] ?? '',
       email: map['email'] ?? '',
     );

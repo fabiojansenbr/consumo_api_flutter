@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:consumo_api_flutter/models/empresa_model.dart';
 import 'package:http/http.dart' as http;
 
+import '../helpers/not_found_exception.dart';
+
 class EmpresaRepositoryHttp {
   Future<List<EmpresaModel>?> getEmpresas() async {
     final endpoint = 'https://6255acfc8646add390db210d.mockapi.io/empresas';
@@ -18,6 +20,24 @@ class EmpresaRepositoryHttp {
     }
 
     if (response.statusCode != 200) return [];
+
+    return null;
+  }
+
+  Future<EmpresaModel?> getEmpresa(String id) async {
+    final endpoint = 'https://6255acfc8646add390db210d.mockapi.io/empresas/$id';
+
+    final response = await http.get(Uri.parse(endpoint));
+
+    if (response.statusCode == 200) {
+      final json = jsonDecode(response.body);
+
+      print(json);
+
+      return EmpresaModel.fromMap(json);
+    }
+
+    if (response.statusCode != 200) throw NotFoundException();
 
     return null;
   }

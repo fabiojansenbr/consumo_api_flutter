@@ -59,9 +59,17 @@ class _HomePageState extends State<HomePage> {
               itemBuilder: (BuildContext context, int index) {
                 final EmpresaModel empresa = snapshot.data[index];
 
-                return ListTile(
-                  title: Text(empresa.nome),
-                  subtitle: Text(empresa.email),
+                return GestureDetector(
+                  onTap: () async {
+                    final response =
+                        await empresaRepositoryHttp.getEmpresa(empresa.id);
+
+                    print(response!.toJson());
+                  },
+                  child: ListTile(
+                    title: Text(empresa.nome),
+                    subtitle: Text(empresa.email),
+                  ),
                 );
               },
             );
